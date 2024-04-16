@@ -13,7 +13,20 @@ router.get("/", (req, res, next) => {
 });
 
 router.post("/", (req, res, next) => {
-  console.log(req.body);
+  let firstName = req.body.firstName.trim();
+  let lastName = req.body.lastName.trim();
+  let username = req.body.username.trim();
+  let email = req.body.email.trim();
+  let password = req.body.password;
+
+  let payload = req.body;
+
+  if (firstName && lastName && username && email && password) {
+  } else {
+    payload.errorMessage = "Not all the fields has a value ";
+    res.status(200).render("register", payload);
+  }
+
   res.status(200).render("register");
 });
 
