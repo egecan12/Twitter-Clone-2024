@@ -1,9 +1,11 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const port = 5000;
 const middleware = require("./middleware");
 const path = require("path");
 const bodyParser = require("body-parser");
+const mongoose = require("./databaseConnection");
 
 const server = app.listen(port, () => {
   console.log("server is listening on port " + port);
