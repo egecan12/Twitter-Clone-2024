@@ -1,0 +1,43 @@
+:root {
+    --blue: #1FA2F1;
+    --buttonHover: #d4edff
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+
+}
+a:hover {
+    color: inherit;
+}
+
+nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    height: 100%;
+}
+nav a {
+    display: block;
+    padding: 10px;
+    font-size: 30px;
+    width: 55px;
+    height: 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav a.blue {
+    color: var(--blue);
+}
+nav a:hover {
+    background-color: var(--buttonHover);
+    color: var(--blue);
+    border-radius: 50%;
+}
+
+.mainSectionContainer {
+    background-color: blue;
+}
