@@ -40,7 +40,7 @@ $("#submitPostButton").click((event) => {
 function createPostHtml(postData) {
   let postedBy = postData.postedBy;
   let displayName = postedBy.firstName + " " + postedBy.lastName;
-  let timestamp = postData.cratedAt;
+  let timestamp = postData.createdAt;
   return `<div class="posts">
 
               <div class="mainContainer">

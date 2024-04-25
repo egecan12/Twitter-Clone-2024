@@ -6,7 +6,18 @@ const User = require("../../schemas/UserSchema"); // Import the User schema
 
 router.use(bodyParser.urlencoded({ extended: false }));
 
-router.get("/", (req, res, next) => {});
+router.get("/", (req, res, next) => {
+  let userId = req.session.user._id;
+  let userPosts = Post.find({ postedBy: userId })
+    .populate("postedBy")
+    .then((userPosts) => {
+      res.status(200).send(userPosts);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.sendStatus(500);
+    });
+});
 
 router.post("/", (req, res, next) => {
   if (!req.body.content) {
