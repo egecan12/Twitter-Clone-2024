@@ -40,7 +40,26 @@ $("#submitPostButton").click((event) => {
 function createPostHtml(postData) {
   let postedBy = postData.postedBy;
   let displayName = postedBy.firstName + " " + postedBy.lastName;
-  let timestamp = postData.createdAt;
+  // Calculate time difference
+  let currentTime = new Date();
+  let postTime = new Date(postData.createdAt);
+  let timeDifference = Math.abs(currentTime - postTime);
+  let seconds = Math.floor(timeDifference / 1000);
+  let minutes = Math.floor(seconds / 60);
+  let hours = Math.floor(minutes / 60);
+  let days = Math.floor(hours / 24);
+
+  let timestamp = "";
+  if (days > 0) {
+    timestamp = `${days} days ago`;
+  } else if (hours > 0) {
+    timestamp = `${hours} hours ago`;
+  } else if (minutes > 0) {
+    timestamp = `${minutes} minutes ago`;
+  } else {
+    timestamp = `Just now`;
+  }
+
   if (postedBy._id === undefined) {
     console.log("User object is not populated");
   }
