@@ -165,6 +165,7 @@ background-color: var(--blueLight);
 .header a,
 .header span {
     padding-right: 5px;
+    font-weight: bold;
 }
 
 .postButtonContainer button:hover {

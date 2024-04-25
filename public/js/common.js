@@ -41,6 +41,9 @@ function createPostHtml(postData) {
   let postedBy = postData.postedBy;
   let displayName = postedBy.firstName + " " + postedBy.lastName;
   let timestamp = postData.createdAt;
+  if (postedBy._id === undefined) {
+    console.log("User object is not populated");
+  }
   return `<div class="posts">
 
               <div class="mainContainer">
