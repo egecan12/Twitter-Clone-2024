@@ -131,6 +131,9 @@ background-color: var(--blueLight);
     flex: 1;
     display: flex;
 }
+.mainContainer{
+    display: flex;
+}
 
 .postContentContainer{
     padding-left: var(--spacing);

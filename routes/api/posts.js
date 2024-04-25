@@ -10,6 +10,7 @@ router.get("/", (req, res, next) => {
   let userId = req.session.user._id;
   let userPosts = Post.find({ postedBy: userId })
     .populate("postedBy")
+    .sort({ createdAt: -1 })
     .then((userPosts) => {
       res.status(200).send(userPosts);
     })
