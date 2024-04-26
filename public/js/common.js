@@ -36,6 +36,7 @@ $("#submitPostButton").click((event) => {
     button.prop("disabled", true);
   });
 });
+//LIKES
 $(document).on("click", ".likeButton", (event) => {
   let button = $(event.target);
   let postId = getPostIdfromElement(button);
@@ -43,7 +44,7 @@ $(document).on("click", ".likeButton", (event) => {
   if (postId === undefined) return;
 
   $.ajax({
-    url: `/api/posts/${postId}/likes`,
+    url: `/api/posts/${postId}/like`,
     type: "PUT",
     success: (postData) => {
       button.find("span").text(postData.likes.length || "");
@@ -53,6 +54,29 @@ $(document).on("click", ".likeButton", (event) => {
       } else {
         button.removeClass("active");
       }
+    },
+  });
+});
+
+//RETWEET
+$(document).on("click", ".retweetButton", (event) => {
+  let button = $(event.target);
+  let postId = getPostIdfromElement(button);
+
+  if (postId === undefined) return;
+
+  $.ajax({
+    url: `/api/posts/${postId}/retweet`,
+    type: "POST",
+    success: (postData) => {
+      console.log(postData);
+      // button.find("span").text(postData.likes.length || "");
+
+      // if (postData.likes.includes(userLoggedIn._id)) {
+      //   button.addClass("active");
+      // } else {
+      //   button.removeClass("active");
+      // }
     },
   });
 });
@@ -122,7 +146,7 @@ function createPostHtml(postData) {
                               </button>
                           </div>
                           <div class="postButtonContainer green">
-                            <button class="retweet">
+                            <button class="retweetButton">
                               <i class="fas fa-retweet"></i>
                             </button>
                           </div>
