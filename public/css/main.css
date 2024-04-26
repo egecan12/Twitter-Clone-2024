@@ -201,3 +201,9 @@ background-color: var(--blueLight);
     color: var(--green);
     background-color: var(--greenBackground);
 }
+.postActionContainer {
+    padding-left: 36px;
+    font-size: 12px;
+    color: var(--grayText);
+    margin-bottom: var(--spacing);
+}
