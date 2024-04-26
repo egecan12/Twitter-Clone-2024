@@ -3,6 +3,7 @@ const router = express();
 const bodyParser = require("body-parser");
 const argon2 = require("argon2");
 const User = require("../schemas/UserSchema"); // Import the User schema
+const sanitizeInput = require("../utils/sanitizer");
 
 router.set("view engine", "pug");
 router.set("views", "views");
@@ -13,7 +14,7 @@ router.get("/", (req, res, next) => {
   res.status(200).render("login");
 });
 
-router.post("/", async (req, res, next) => {
+router.post("/", sanitizeInput(), async (req, res, next) => {
   let username = req.body.logUsername;
   let password = req.body.logPassword;
   //checks if the user exists

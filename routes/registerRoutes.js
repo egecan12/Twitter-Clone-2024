@@ -4,6 +4,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const User = require("../schemas/UserSchema"); // Import the User schema
 const argon2 = require("argon2");
+const sanitizeInput = require("../utils/sanitizer");
 
 app.set("view engine", "pug");
 app.set("views", "views");
@@ -14,7 +15,7 @@ router.get("/", (req, res, next) => {
   res.status(200).render("register");
 });
 
-router.post("/", async (req, res, next) => {
+router.post("/", sanitizeInput(), async (req, res, next) => {
   let firstName = req.body.firstName.trim();
   let lastName = req.body.lastName.trim();
   let username = req.body.username.trim();

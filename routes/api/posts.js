@@ -4,6 +4,8 @@ const bodyParser = require("body-parser");
 const Post = require("../../schemas/PostSchema");
 const User = require("../../schemas/UserSchema"); // Import the User schema
 const mongoose = require("mongoose");
+const sanitizeInput = require("../../utils/sanitizer");
+
 router.use(bodyParser.urlencoded({ extended: false }));
 
 router.get("/", (req, res, next) => {
@@ -20,7 +22,7 @@ router.get("/", (req, res, next) => {
     });
 });
 
-router.post("/", (req, res, next) => {
+router.post("/", sanitizeInput(), (req, res, next) => {
   if (!req.body.content) {
     console.log("content param has not been sent with the request");
     return res.status(400);
@@ -46,14 +48,6 @@ router.put("/:id/like", async (req, res, next) => {
 
   let postId = req.params.id;
   let userId = req.session.user._id;
-
-  // Validate postId and userId
-  if (
-    !mongoose.Types.ObjectId.isValid(postId) ||
-    !mongoose.Types.ObjectId.isValid(userId)
-  ) {
-    return res.status(400).send("Invalid postId or userId");
-  }
 
   // Get the user from the database
   let user = await User.findById(userId).catch((error) => {
@@ -107,37 +101,35 @@ router.post("/:id/retweet", async (req, res, next) => {
 
   //Trys and deletes retweet
 
-  let deletedPost = await Post.findOneAndDelete();
-
-  // Validate postId and userId
-  if (
-    !mongoose.Types.ObjectId.isValid(postId) ||
-    !mongoose.Types.ObjectId.isValid(userId)
-  ) {
-    return res.status(400).send("Invalid postId or userId");
-  }
-
-  // Get the user from the database
-  let user = await User.findById(userId).catch((error) => {
+  let deletedPost = await Post.findOneAndDelete({
+    postedBy: userId,
+    retweetData: postId,
+  }).catch((error) => {
     console.log(error);
     res.sendStatus(400);
     return; // Ensure that the function doesn't continue executing after an error
   });
 
-  let isLiked = user.likes && user.likes.includes(postId);
+  let option = deletedPost != null ? "$pull" : "$addToSet";
 
-  console.log("is liked " + isLiked);
+  let repost = deletedPost;
 
-  let option = isLiked ? "$pull" : "$addToSet";
-
-  console.log("opt: " + option);
-
+  if (repost == null) {
+    repost = await Post.create({
+      postedBy: userId,
+      retweetData: postId,
+    }).catch((error) => {
+      console.log(error);
+      res.sendStatus(400);
+      return; // Ensure that the function doesn't continue executing after an error
+    });
+  }
   //insert user like
 
   await User.findByIdAndUpdate(
     userId,
     {
-      [option]: { likes: postId },
+      [option]: { retweets: repost._id },
     },
     { new: true }
   ).catch((error) => {
@@ -150,7 +142,7 @@ router.post("/:id/retweet", async (req, res, next) => {
   let post = await Post.findByIdAndUpdate(
     postId,
     {
-      [option]: { likes: userId },
+      [option]: { retweetUsers: userId },
     },
     { new: true }
   ).catch((error) => {

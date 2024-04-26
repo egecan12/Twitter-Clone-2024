@@ -46,7 +46,10 @@ app.get("/", middleware.requireLogin, (req, res, next) => {
   var payload = {
     pageTitle: "Home",
     isUserLoggedIn: req.session.user,
-    isUserLoggedInJs: JSON.stringify(req.session.user),
+    isUserLoggedInJs: JSON.stringify({
+      _id: req.session.user._id,
+      username: req.session.user.username,
+    }),
   };
   res.status(200).render("home", payload);
 });
