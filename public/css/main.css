@@ -6,7 +6,10 @@
     --blueLight: #9bd9f9;
     --grayText: rgb(101, 119, 134);
     --grayButtonText: rgba(0,0,0,0.34);
-    --red: rgb(226, 34, 94)
+    --red: rgb(226, 34, 94);
+    --redBackground: rgba(226, 34, 95, 0.149);
+    --green: rgb(34, 226, 108);
+    --greenBackground: rgba(34, 226, 108, 0.168);
 }
 
 a {
@@ -184,4 +187,17 @@ background-color: var(--blueLight);
 
 .postButtonContainer.red button.active {
     color: var(--red);
+}
+
+.postButtonContainer.red button:hover {
+    background-color: var(--redBackground);
+    color: var(--red);
+}
+
+.postButtonContainer.green button.active {
+    color: var(--greenBackground);
+}
+.postButtonContainer.green button:hover {
+    color: var(--green);
+    background-color: var(--greenBackground);
 }
