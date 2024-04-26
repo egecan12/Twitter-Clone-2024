@@ -36,6 +36,32 @@ $("#submitPostButton").click((event) => {
     button.prop("disabled", true);
   });
 });
+$(document).on("click", ".likeButton", (event) => {
+  let button = $(event.target);
+  let postId = getPostIdfromElement(button);
+
+  if (postId === undefined) return;
+
+  $.ajax({
+    url: `/api/posts/${postId}/likes`,
+    type: "PUT",
+    success: (postData) => {
+      button.find("span").text(postData.likes.length || "");
+    },
+  });
+});
+
+function getPostIdfromElement(element) {
+  let isRoot = element.hasClass("posts");
+  let rootElement = isRoot ? element : element.closest(".posts");
+  let postId = rootElement.data("id");
+
+  if (postId === undefined) {
+    return alert("Post id undefined");
+  }
+
+  return postId;
+}
 
 function createPostHtml(postData) {
   let postedBy = postData.postedBy;
@@ -63,7 +89,7 @@ function createPostHtml(postData) {
   if (postedBy._id === undefined) {
     console.log("User object is not populated");
   }
-  return `<div class="posts">
+  return `<div class="posts" data-id="${postData._id}">
 
               <div class="mainContainer">
                   <div class="userImageContainer">
@@ -91,8 +117,9 @@ function createPostHtml(postData) {
                             </button>
                           </div>
                           <div class="postButtonContainer">
-                            <button>
+                            <button class="likeButton">
                               <i class="far fa-heart"></i>
+                              <span>${postData.likes.length || ""}</span>
                             </button>
                           </div>                      
                       </div>

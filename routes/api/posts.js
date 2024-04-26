@@ -3,7 +3,7 @@ const router = express();
 const bodyParser = require("body-parser");
 const Post = require("../../schemas/PostSchema");
 const User = require("../../schemas/UserSchema"); // Import the User schema
-
+const mongoose = require("mongoose");
 router.use(bodyParser.urlencoded({ extended: false }));
 
 router.get("/", (req, res, next) => {
@@ -39,6 +39,64 @@ router.post("/", (req, res, next) => {
       console.log(error);
       res.sendStatus(400);
     });
+});
+
+router.put("/:id/likes", async (req, res, next) => {
+  console.log(req.params.id);
+
+  let postId = req.params.id;
+  let userId = req.session.user._id;
+
+  // Validate postId and userId
+  if (
+    !mongoose.Types.ObjectId.isValid(postId) ||
+    !mongoose.Types.ObjectId.isValid(userId)
+  ) {
+    return res.status(400).send("Invalid postId or userId");
+  }
+
+  // Get the user from the database
+  let user = await User.findById(userId).catch((error) => {
+    console.log(error);
+    res.sendStatus(400);
+    return; // Ensure that the function doesn't continue executing after an error
+  });
+
+  let isLiked = user.likes && user.likes.includes(postId);
+
+  console.log("is liked " + isLiked);
+
+  let option = isLiked ? "$pull" : "$addToSet";
+
+  console.log("opt: " + option);
+
+  //insert user like
+
+  await User.findByIdAndUpdate(
+    userId,
+    {
+      [option]: { likes: postId },
+    },
+    { new: true }
+  ).catch((error) => {
+    console.log(error);
+    res.sendStatus(400);
+  });
+
+  //insert post like
+
+  let post = await Post.findByIdAndUpdate(
+    postId,
+    {
+      [option]: { likes: userId },
+    },
+    { new: true }
+  ).catch((error) => {
+    console.log(error);
+    res.sendStatus(400);
+  });
+
+  res.status(200).send(post);
 });
 
 module.exports = router;
