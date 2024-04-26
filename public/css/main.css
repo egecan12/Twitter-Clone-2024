@@ -195,7 +195,7 @@ background-color: var(--blueLight);
 }
 
 .postButtonContainer.green button.active {
-    color: var(--greenBackground);
+    color: var(--green);
 }
 .postButtonContainer.green button:hover {
     color: var(--green);

@@ -10,11 +10,13 @@ router.use(bodyParser.urlencoded({ extended: false }));
 
 router.get("/", (req, res, next) => {
   let userId = req.session.user._id;
-  let userPosts = Post.find({ postedBy: userId })
+  Post.find({ postedBy: userId })
     .populate("postedBy")
+    .populate("retweetData")
     .sort({ createdAt: -1 })
-    .then((userPosts) => {
-      res.status(200).send(userPosts);
+    .then(async (results) => {
+      results = await User.populate(results, { path: "retweetData.postedBy" });
+      res.status(200).send(results);
     })
     .catch((error) => {
       console.log(error);
