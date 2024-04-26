@@ -47,6 +47,12 @@ $(document).on("click", ".likeButton", (event) => {
     type: "PUT",
     success: (postData) => {
       button.find("span").text(postData.likes.length || "");
+
+      if (postData.likes.includes(userLoggedIn._id)) {
+        button.addClass("active");
+      } else {
+        button.removeClass("active");
+      }
     },
   });
 });
@@ -89,6 +95,10 @@ function createPostHtml(postData) {
   if (postedBy._id === undefined) {
     console.log("User object is not populated");
   }
+
+  let likeButtonInitialActiveClass = postData.likes.includes(userLoggedIn._id)
+    ? "active"
+    : "";
   return `<div class="posts" data-id="${postData._id}">
 
               <div class="mainContainer">
@@ -111,13 +121,13 @@ function createPostHtml(postData) {
                                   <i class="far fa-comment"></i>
                               </button>
                           </div>
-                          <div class="postButtonContainer">
-                            <button>
+                          <div class="postButtonContainer green">
+                            <button class="retweet">
                               <i class="fas fa-retweet"></i>
                             </button>
                           </div>
-                          <div class="postButtonContainer">
-                            <button class="likeButton">
+                          <div class="postButtonContainer red">
+                            <button class="likeButton ${likeButtonInitialActiveClass}">
                               <i class="far fa-heart"></i>
                               <span>${postData.likes.length || ""}</span>
                             </button>
