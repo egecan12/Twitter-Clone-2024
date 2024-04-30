@@ -46,8 +46,6 @@ router.post("/", sanitizeInput(), (req, res, next) => {
 });
 
 router.put("/:id/like", async (req, res, next) => {
-  console.log(req.params.id);
-
   let postId = req.params.id;
   let userId = req.session.user._id;
 
@@ -60,11 +58,7 @@ router.put("/:id/like", async (req, res, next) => {
 
   let isLiked = user.likes && user.likes.includes(postId);
 
-  console.log("is liked " + isLiked);
-
   let option = isLiked ? "$pull" : "$addToSet";
-
-  console.log("opt: " + option);
 
   //insert user like
 
