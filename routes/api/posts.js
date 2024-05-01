@@ -8,20 +8,14 @@ const sanitizeInput = require("../../utils/sanitizer");
 
 router.use(bodyParser.urlencoded({ extended: false }));
 
-router.get("/", (req, res, next) => {
-  let userId = req.session.user._id;
-  Post.find({ postedBy: userId })
-    .populate("postedBy")
-    .populate("retweetData")
-    .sort({ createdAt: -1 })
-    .then(async (results) => {
-      results = await User.populate(results, { path: "retweetData.postedBy" });
-      res.status(200).send(results);
-    })
-    .catch((error) => {
-      console.log(error);
-      res.sendStatus(500);
-    });
+router.get("/", async (req, res, next) => {
+  let results = await getPosts();
+  console.log(results);
+  res.status(200).send(results);
+});
+
+router.get("/:id", (req, res, next) => {
+  return res.status(200).send("amazing");
 });
 
 router.post("/", sanitizeInput(), (req, res, next) => {
@@ -148,5 +142,16 @@ router.post("/:id/retweet", async (req, res, next) => {
 
   res.status(200).send(post);
 });
+
+async function getPosts() {
+  let results = await Post.find()
+    .populate("postedBy")
+    .populate("retweetData")
+    .sort({ createdAt: -1 })
+    .catch((error) => {
+      console.log(error);
+    });
+  return await User.populate(results, { path: "retweetData.postedBy" });
+}
 
 module.exports = router;

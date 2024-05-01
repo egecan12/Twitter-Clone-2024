@@ -1,25 +1,29 @@
-// $("#postTextarea").keyup((event) => {
-//   var textbox = $(event.target);
-//   var value = textbox.val().trim();
+$("#postTextarea, #replyTextarea").keyup((event) => {
+  let textbox = $(event.target);
+  let value = textbox.val().trim();
 
-//   const submitButton = $("#submitPostButton");
+  let isModal = textbox.parents(".modal").length == 1;
 
-//   if (submitButton.length == 0) {
-//     return alert("No submit button found");
-//   }
-//   if (value == "") {
-//     submitButton.prop("disabled", true);
-//     return;
-//   }
-//   submitButton.prop("disabled", false);
-// });
+  const submitButton = isModal
+    ? $("#submitReplyButton")
+    : $("#submitPostButton");
 
-document
-  .querySelector(".textareaContainer textarea")
-  .addEventListener("input", function () {
-    document.querySelector("#submitPostButton").disabled =
-      this.value.trim() === "" ? true : false;
-  });
+  if (submitButton.length == 0) {
+    return alert("No submit button found");
+  }
+  if (value == "") {
+    submitButton.prop("disabled", true);
+    return;
+  }
+  submitButton.prop("disabled", false);
+});
+
+// document
+//   .querySelector(".textareaContainer textarea ")
+//   .addEventListener("input", function () {
+//     document.querySelector("#submitPostButton").disabled =
+//       this.value.trim() === "" ? true : false;
+//   });
 
 $("#submitPostButton").click((event) => {
   const button = $(event.target);
@@ -55,6 +59,15 @@ $(document).on("click", ".likeButton", (event) => {
         button.removeClass("active");
       }
     },
+  });
+});
+
+$("#replyModal").on("show.bs.modal", (event) => {
+  let button = $(event.relatedTarget);
+  let postId = getPostIdfromElement(button);
+
+  $.get("api/posts/" + postId, function (results) {
+    console.log(results);
   });
 });
 
