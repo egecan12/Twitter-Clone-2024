@@ -1,6 +1,10 @@
 # Twitter Clone 2024
 
-This project is a simplified clone of Twitter, built for educational purposes. It allows users to register, login, post messages, and like/dislike posts. The project is built using Node.js, Express, MongoDB, and Pug for server-side rendering.
+This project is a simplified clone of Twitter, built for educational purposes. It allows users to register, login, post messages, and like/dislike posts.
+
+I am currently working on it to integrate more feautures.
+
+The project is built using Node.js, Express, MongoDB, and Pug for server-side rendering.
 
 ## Tech Stack
 
