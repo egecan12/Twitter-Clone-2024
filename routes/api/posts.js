@@ -8,16 +8,20 @@ const sanitizeInput = require("../../utils/sanitizer");
 
 router.use(bodyParser.urlencoded({ extended: false }));
 
+//gets all posts
 router.get("/", async (req, res, next) => {
   let results = await getPosts();
+  //results = results[0];
   console.log(results);
   res.status(200).send(results);
 });
 
-router.get("/:id", (req, res, next) => {
-  return res.status(200).send("amazing");
+router.get("/:id", async (req, res, next) => {
+  let postId = req.params.id;
+  let results = await getPosts({ _id: postId });
+  res.status(200).send(results);
 });
-
+//sends a post
 router.post("/", sanitizeInput(), (req, res, next) => {
   if (!req.body.content) {
     console.log("content param has not been sent with the request");
@@ -38,7 +42,7 @@ router.post("/", sanitizeInput(), (req, res, next) => {
       res.sendStatus(400);
     });
 });
-
+//likes and dislikes a post
 router.put("/:id/like", async (req, res, next) => {
   let postId = req.params.id;
   let userId = req.session.user._id;
@@ -82,7 +86,7 @@ router.put("/:id/like", async (req, res, next) => {
 
   res.status(200).send(post);
 });
-
+//retweets a post
 router.post("/:id/retweet", async (req, res, next) => {
   // console.log(req.params.id);
 
@@ -142,9 +146,9 @@ router.post("/:id/retweet", async (req, res, next) => {
 
   res.status(200).send(post);
 });
-
-async function getPosts() {
-  let results = await Post.find()
+//gets all posts
+async function getPosts(filter) {
+  let results = await Post.find(filter)
     .populate("postedBy")
     .populate("retweetData")
     .sort({ createdAt: -1 })
