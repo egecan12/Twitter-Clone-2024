@@ -1,5 +1,8 @@
 # Twitter Clone 2024
 
+![twitter1](https://github.com/egecan12/Twitter-Clone-2024/assets/45043515/ec6dface-791b-4d02-97fd-cfcc368f62bf)
+
+
 This project is a simplified clone of Twitter, built for educational purposes. It allows users to register, login, post messages, and like/dislike posts.
 
 I am currently working on it to integrate more feautures.
@@ -78,6 +81,8 @@ Create your Feature Branch (git checkout -b feature/AmazingFeature)
 Commit your Changes (git commit -m 'Add some AmazingFeature')
 Push to the Branch (git push origin feature/AmazingFeature)
 Open a Pull Request
-Please note that this project is released with a Contributo
+Please note that this project is released with a Contributon
+
+
 
 Written by Egecan
