@@ -8,8 +8,11 @@ const bodyParser = require("body-parser");
 const mongoose = require("./databaseConnection");
 const session = require("express-session");
 
-const server = app.listen(port, () => {
-  console.log("server is listening on port " + port);
+const PORT = process.env.PORT || 5000;
+const HOST = process.env.HOST || "127.0.0.1";
+
+const server = app.listen(PORT, HOST, () => {
+  console.log(`Server is listening on ${HOST}:${PORT}`);
 });
 
 app.set("view engine", "pug");
