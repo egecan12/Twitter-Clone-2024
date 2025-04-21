@@ -1,87 +1,97 @@
 # Twitter Clone 2024
 
-![twitter1](https://github.com/egecan12/Twitter-Clone-2024/assets/45043515/ec6dface-791b-4d02-97fd-cfcc368f62bf)
+<div align="center">
 
-Project-Link: https://twitter-clone-2024.onrender.com/
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen.svg)](https://twitter-clone-2024.onrender.com)
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 
-This project is a simplified clone of Twitter, built for educational purposes. It allows users to register, login, post messages, and like/dislike posts.
+A simplified Twitter clone built with Node.js, Express, MongoDB, and Pug. Designed for educational purposes with user registration, login, tweeting, and like/dislike functionality.
 
-I am currently working on it to integrate more feautures.
+<div align="center">
+  <img src="https://github.com/egecan12/Twitter-Clone-2024/assets/45043515/ec6dface-791b-4d02-97fd-cfcc368f62bf" alt="Twitter Clone Screenshot" width="720"/>
+</div>
 
-The project is built using Node.js, Express, MongoDB, and Pug for server-side rendering.
+</div>
 
-## Tech Stack
+## ✨ Key Features
 
-### Node.js
+- 📝 Post tweets with real-time rendering
+- ❤️ Like/Dislike system
+- 👤 User registration and authentication
+- 🛡️ Secure password hashing with Argon2
+- 📦 Session handling via Express-Session
+- 🌐 Server-side rendering with Pug
+- 🗃️ MongoDB database integration
+- 🧪 Built for learning and experimentation
 
-A JavaScript runtime built on Chrome's V8 JavaScript engine.
+## 🚀 Quick Start
 
-### Express
+Visit [Twitter Clone 2024](https://twitter-clone-2024.onrender.com) to try it out live.
 
-A fast, unopinionated, minimalist web framework for Node.js.
+## 🛠️ Technology Stack
 
-### MongoDB
+- **Node.js** – JavaScript runtime environment
+- **Express** – Web framework for building server-side logic
+- **MongoDB** – NoSQL database for storing user data and posts
+- **Mongoose** – ODM for MongoDB and Node.js
+- **Pug** – Template engine for server-side rendering
+- **Argon2** – Modern, secure password hashing
+- **Express-Session** – Session management middleware
+- **Body-Parser** – Middleware to parse incoming request bodies
+- **Dotenv** – Loads environment variables from `.env`
 
-A source-available cross-platform document-oriented database program.
+## ⚙️ Setup Instructions
 
-### Mongoose
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/egecan12/Twitter-Clone-2024.git
+   cd Twitter-Clone-2024
+   ```
 
-An Object Data Modeling (ODM) library for MongoDB and Node.js.
-
-### Pug
-
-A high-performance template engine heavily influenced by Haml and implemented with JavaScript for Node.js and browsers.
-
-### Argon2
-
-A password-hashing function that summarizes the state of the art in the design of memory-hard functions and can be used to hash passwords for credential storage, key derivation, or other applications.
-
-### Express-Session
-
-A session middleware for Express.
-
-### Body-Parser
-
-Node.js body parsing middleware.
-
-### Dotenv
-
-A zero-dependency module that loads environment variables from a `.env` file into `process.env`.
-
-## Setup
-
-1. **Clone the repository** to your local machine.
-
-2. **Navigate to the project directory.**
-
-3. **Install the dependencies** by running the following command:
-
+2. **Install dependencies**
    ```bash
    npm install
    ```
 
-4. **Create a `.env` file** in the root directory. The `.env` file should contain the following variables:
+3. **Create a `.env` file** with the following contents:
+   ```
+   SESSION_SECRET=your_secret_key
+   DB_URL=your_mongodb_connection_string
+   PORT=5000
+   ```
 
-   - `SESSION_SECRET`: Your session secret.
-   - `DB_URL`: Your MongoDB connection string.
-   - `PORT`: The port on which the server will run (default is 5000) for deployment set it (0.0.0.0).
-
-5. **Start the server** by running the following command:
+4. **Run the app**
    ```bash
    npm start
    ```
-   The server will start on the port specified in the `.env` file or port 5000 if no port is specified.
 
-## Contribution
+> The app will run on the port specified in your `.env` file. For deployment, set the host to `0.0.0.0`.
 
-Feel free to contribute to this project. Any contributions you make are greatly appreciated. Please ensure your code adheres to the existing style to maintain consistency across the codebase.
+## 🤝 Contributing
 
-## Fork the Project
+Contributions are welcome!  
+Please follow the steps below:
 
-Create your Feature Branch (git checkout -b feature/AmazingFeature)
-Commit your Changes (git commit -m 'Add some AmazingFeature')
-Push to the Branch (git push origin feature/AmazingFeature)
-Open a Pull Request
-Please note that this project is released with a Contributon
+```bash
+git checkout -b feature/AmazingFeature
+git commit -m "Add some AmazingFeature"
+git push origin feature/AmazingFeature
+```
 
-Written by Egecan
+Then open a **Pull Request**. Please ensure your code follows the existing code style.
+
+## 👨‍💻 Author
+
+Egecan Kahyaoglu  
+- [GitHub](https://github.com/egecan12)  
+- [LinkedIn](Your-LinkedIn-URL)
+
+## 📝 License
+
+This project is licensed under the MIT License – see the [LICENSE](LICENSE) file for details.
+
+---
+
+<div align="center">
+Made with 🐦 and ❤️ by Egecan Kahyaoglu
+</div>
